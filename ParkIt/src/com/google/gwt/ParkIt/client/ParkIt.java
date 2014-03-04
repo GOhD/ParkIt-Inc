@@ -41,9 +41,9 @@ public class ParkIt implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
-		final Button sendButton = new Button("Send");
-		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
+		final Button sendButton = new Button("Update Data");
+		//final TextBox nameField = new TextBox();
+		//nameField.setText("GWT User");
 		final Label errorLabel = new Label();
 
 		// We can add style names to widgets
@@ -51,13 +51,13 @@ public class ParkIt implements EntryPoint {
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
+		//RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 
 		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
+		//nameField.setFocus(true);
+		//nameField.selectAll();
 
 		// Create the popup dialog box
 		final DialogBox dialogBox = new DialogBox();
@@ -95,7 +95,7 @@ public class ParkIt implements EntryPoint {
 			 */
 			@Override
 			public void onClick(ClickEvent event) {
-				sendNameToServer();
+				//sendNameToServer();
 			}
 
 			/**
@@ -104,14 +104,14 @@ public class ParkIt implements EntryPoint {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					sendNameToServer();
+					//sendNameToServer();
 				}
 			}
 
 			/**
 			 * Send the name from the nameField to the server and wait for a response.
 			 */
-			private void sendNameToServer() {
+/*			private void sendNameToServer() {
 				// First, we validate the input.
 				errorLabel.setText("");
 				String textToServer = nameField.getText();
@@ -148,12 +148,12 @@ public class ParkIt implements EntryPoint {
 								closeButton.setFocus(true);
 							}
 						});
-			}
+			}*/
 		}
 
 		// Add a handler to send the name to the server
-		MyHandler handler = new MyHandler();
+		/*MyHandler handler = new MyHandler();
 		sendButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
+		nameField.addKeyUpHandler(handler);*/
 	}
 }
