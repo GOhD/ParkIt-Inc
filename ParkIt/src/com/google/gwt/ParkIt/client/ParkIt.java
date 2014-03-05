@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.gwt.parkit.client.Login;
+import com.google.gwt.ParkIt.client.Login;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

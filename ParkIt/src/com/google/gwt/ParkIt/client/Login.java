@@ -1,4 +1,4 @@
-package com.gwt.parkit.client;
+package com.google.gwt.ParkIt.client;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.Window;
