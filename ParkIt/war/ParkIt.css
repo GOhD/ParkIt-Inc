@@ -32,3 +32,28 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+.login-banner {
+	background-color: #2D2D2D;
+	border-bottom: 1px solid #000;
+	color: #FFF;
+	cursor: auto;
+	font: 11px/27px Arial, sans-serif;
+	font-weight: cursiv;
+	height: 31px;
+	left: 0;
+	opacity: 1;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 990;
+}
+
+.login-area,.login-area:hover,.login-area:visited {
+	border: solid #2D2D2D;
+	border-width: 4px;
+	font-size: 13pt;
+	font-weight: 300;
+	color: #FFF;
+	text-decoration: none;
+}

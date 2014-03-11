@@ -1,2 +1,0 @@
-serviceClass: com.google.gwt.ParkIt.client.GreetingService
-path: 3575951584837D468C21A407E4040D0F.gwt.rpc
