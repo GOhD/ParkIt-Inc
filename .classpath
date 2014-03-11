@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="ParkIt/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/plus-v1r119lv1.16.0-rc"/>
+	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/google-api-client-1.6.0-beta.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/google-oauth-client-1.5.0-beta.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/gwt-oauth2-0.2-alpha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/jackson-core-asl-1.9.1.jar"/>
+	<classpathentry kind="output" path="ParkIt/war/WEB-INF/classes"/>
+</classpath>
