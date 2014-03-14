@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="ParkIt/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
@@ -10,5 +9,6 @@
 	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/google-oauth-client-1.5.0-beta.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/gwt-oauth2-0.2-alpha.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/jackson-core-asl-1.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Christine/Desktop/gwt-maps-3.8.0-pre1/gwt-maps-3.8.0/gwt-maps.jar"/>
 	<classpathentry kind="output" path="ParkIt/war/WEB-INF/classes"/>
 </classpath>

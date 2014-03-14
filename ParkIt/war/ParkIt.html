@@ -13,24 +13,13 @@
     <!--                                                               -->
     <link type="text/css" rel="stylesheet" href="ParkIt.css">
 
-    <!--                                           -->
-    <!-- Any title is fine                         -->
-    <!--                                           -->
     <title>Park It</title>
     
-    <!--                                           -->
-    <!-- This script loads your compiled module.   -->
-    <!-- If you add any GWT meta tags, they must   -->
-    <!-- be added before this line.                -->
-    <!--                                           -->
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    
     <script type="text/javascript" language="javascript" src="parkit/parkit.nocache.js"></script>
   </head>
 
-  <!--                                           -->
-  <!-- The body can have arbitrary html, or      -->
-  <!-- you can leave the body empty if you want  -->
-  <!-- to create a completely dynamic UI.        -->
-  <!--                                           -->
   <body>
 
     <!-- OPTIONAL: include this if you want history support -->
@@ -48,17 +37,7 @@
 
     <h1>Park It</h1>
 
-    <table align="center">
-      <tr>
-        <!--td colspan="2" style="font-weight:bold;">Please enter your name:</td-->        
-      </tr>
-      <tr>
-        <td id="nameFieldContainer"></td>
-        <td id="sendButtonContainer"></td>
-      </tr>
-      <tr>
-        <td colspan="2" style="color:red;" id="errorLabelContainer"></td>
-      </tr>
-    </table>
+    <div id="map_top"></div>
+    <div id="map_canvas" style="height: 700px; width: 1200px"></div>
   </body>
 </html>

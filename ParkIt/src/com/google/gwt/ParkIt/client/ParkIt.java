@@ -1,12 +1,41 @@
 package com.google.gwt.ParkIt.client;
 
+import java.util.List;
+
 import com.google.gwt.ParkIt.shared.FieldVerifier;
 import com.google.gwt.ParkIt.shared.LoginInfo;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.core.client.JsArray;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HasAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.maps.gwt.client.Geocoder;
+import com.google.maps.gwt.client.GeocoderRequest;
+import com.google.maps.gwt.client.GeocoderResult;
+import com.google.maps.gwt.client.GeocoderStatus;
+import com.google.maps.gwt.client.GoogleMap;
+import com.google.maps.gwt.client.InfoWindow;
+import com.google.maps.gwt.client.InfoWindowOptions;
+import com.google.maps.gwt.client.KmlFeatureData;
+import com.google.maps.gwt.client.KmlLayer;
+import com.google.maps.gwt.client.KmlLayerOptions;
+import com.google.maps.gwt.client.KmlMouseEvent;
+import com.google.maps.gwt.client.LatLng;
+import com.google.maps.gwt.client.LatLngBounds;
+import com.google.maps.gwt.client.MapOptions;
+import com.google.maps.gwt.client.MapTypeId;
+import com.google.maps.gwt.client.Marker;
+import com.google.maps.gwt.client.MouseEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
@@ -14,16 +43,9 @@ import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.api.gwt.oauth2.client.Auth;
 import com.google.api.gwt.oauth2.client.AuthRequest;
 
@@ -41,6 +63,12 @@ public class ParkIt implements EntryPoint {
 	private final Anchor signInLink = new Anchor("");
 	private final Image loginImage = new Image();
 	private final TextBox nameField = new TextBox();
+	
+	GoogleMap map;
+	private VerticalPanel vPanel = new VerticalPanel();
+	private HorizontalPanel hPanel = new HorizontalPanel();
+	private TextBox textBox = new TextBox();
+	private Button button = new Button("Search!");
 	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
@@ -65,6 +93,7 @@ public class ParkIt implements EntryPoint {
 	private void loadLogout(final LoginInfo loginInfo) {
 		signInLink.setHref(loginInfo.getLogoutUrl());
 		signInLink.setText(loginInfo.getName());
+		signInLink.setText("Log out.");
 		signInLink.setTitle("Sign out");
 	}
 	
@@ -121,114 +150,9 @@ public class ParkIt implements EntryPoint {
 	}
 
 	public void onModuleLoad() {
-		final Button sendButton = new Button("Send");
-		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
-		final Label errorLabel = new Label();
-
-		// We can add style names to widgets
-		sendButton.addStyleName("sendButton");
-
-		// Add the nameField and sendButton to the RootPanel
-		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
-
-		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
-
-		// Create the popup dialog box
-		final DialogBox dialogBox = new DialogBox();
-		dialogBox.setText("Remote Procedure Call");
-		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
-		// We can set the id of a widget by accessing its Element
-		closeButton.getElement().setId("closeButton");
-		final Label textToServerLabel = new Label();
-		final HTML serverResponseLabel = new HTML();
-		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.addStyleName("dialogVPanel");
-		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
-		dialogVPanel.add(textToServerLabel);
-		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
-		dialogVPanel.add(serverResponseLabel);
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
-
-		// Add a handler to close the DialogBox
-		closeButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				dialogBox.hide();
-				sendButton.setEnabled(true);
-				sendButton.setFocus(true);
-			}
-		});
-
-		// Create a handler for the sendButton and nameField
-		class MyHandler implements ClickHandler, KeyUpHandler {
-			/**
-			 * Fired when the user clicks on the sendButton.
-			 */
-			public void onClick(ClickEvent event) {
-				sendNameToServer();
-			}
-
-			/**
-			 * Fired when the user types in the nameField.
-			 */
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					sendNameToServer();
-				}
-			}
-
-			/**
-			 * Send the name from the nameField to the server and wait for a response.
-			 */
-			private void sendNameToServer() {
-				// First, we validate the input.
-				errorLabel.setText("");
-				String textToServer = nameField.getText();
-				if (!FieldVerifier.isValidName(textToServer)) {
-					errorLabel.setText("Please enter at least four characters");
-					return;
-				}
-
-				// Then, we send the input to the server.
-				sendButton.setEnabled(false);
-				textToServerLabel.setText(textToServer);
-				serverResponseLabel.setText("");
-				greetingService.greetServer(textToServer,
-						new AsyncCallback<String>() {
-							public void onFailure(Throwable caught) {
-								// Show the RPC error message to the user
-								dialogBox
-										.setText("Remote Procedure Call - Failure");
-								serverResponseLabel
-										.addStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(SERVER_ERROR);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-
-							public void onSuccess(String result) {
-								dialogBox.setText("Remote Procedure Call");
-								serverResponseLabel
-										.removeStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(result);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-						});
-			}
-		}
 		
-		sendButton.setEnabled(false);		
-		nameField.setEnabled(false);	
-
+		button.setEnabled(false);
+		textBox.setEnabled(false);
 		signInLink.getElement().setClassName("login-area");
 		signInLink.setTitle("sign out");
 		loginImage.getElement().setClassName("login-area");
@@ -246,19 +170,147 @@ public class ParkIt implements EntryPoint {
 				if (result.getName() != null && !result.getName().isEmpty()) {
 					addGoogleAuthHelper();
 					loadLogout(result);
-					sendButton.setEnabled(true);	
-					nameField.setEnabled(true);
+					button.setEnabled(true);
+					textBox.setEnabled(true);
+					textBox.setFocus(true);
+					textBox.selectAll();
 				} else {
 					loadLogin(result);
 				}
 				userEmail.append(result.getEmailAddress());
 			}
-		});
+			
 
-		// Add a handler to send the name to the server
-		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
-	}
-}
+		});
+		
+		
+		//setting Panel's specs
+				vPanel.setPixelSize(0, 40);
+				hPanel.setPixelSize(100, 40);
+				hPanel.add(textBox);
+				hPanel.add(button);
+				
+				// Default location LatLng
+				final LatLng myLatLng = LatLng.create(49.2500, -123.1000);
+				
+				//Creating map object
+			    MapOptions myOptions = MapOptions.create();
+			    myOptions.setZoom(12.0);
+			    myOptions.setCenter(myLatLng);
+			    myOptions.setMapTypeId(MapTypeId.ROADMAP);
+			    map = GoogleMap.create(Document.get().getElementById("map_canvas"), myOptions);
+			    
+			
+			    
+			    // Produce the output when clicking the search button
+			    button.addClickHandler(new ClickHandler(){ 
+
+					@Override
+					public void onClick(ClickEvent event) {
+						
+						
+						// Content of the searchbox
+						String a = textBox.getText();
+						
+						// Request object
+						GeocoderRequest request = GeocoderRequest.create();
+						request.setAddress(a);
+						
+						// Creating the Geocoder
+						Geocoder geocoder = Geocoder.create();
+						geocoder.geocode(request, new Geocoder.Callback(){
+							
+							@Override
+							public void handle(JsArray<GeocoderResult> a, GeocoderStatus b) {
+								
+								// 
+								if(b != GeocoderStatus.OK) {
+									alertWidget("Invalid Address Location",
+											"Please check for errors and enter again.")
+											.center();
+								}
+								
+								map.clearProjectionChangedListeners();
+								// Ensure request was successful in the server
+								if(b == GeocoderStatus.OK){
+									
+									final GeocoderResult reqll = a.get(0);
+									map.setCenter(reqll.getGeometry().getLocation());
+									map.setZoom(14);
+									
+									// Searching Bounds
+									LatLngBounds bounds = LatLngBounds.create(LatLng.create((reqll.getGeometry().getLocation().lat()-0.05), (reqll.getGeometry().getLocation().lng()-0.05)), 
+									LatLng.create((reqll.getGeometry().getLocation().lat()+0.05), (reqll.getGeometry().getLocation().lng()+005)));
+									
+									// List containing all the ParkingMeter objects
+									List<ParkingMeter> result = data.result();
+									
+									// Plot the parking locations in the map with markers
+									for(final ParkingMeter d: result){
+										
+										if(bounds.contains(d.getLatLng())){
+											Marker parkingMarker = Marker.create();
+											parkingMarker.setMap(map);
+											parkingMarker.setPosition(d.getLatLng());
+											
+											
+											// Open the InfoWindow object of a parking location when marker is clicked
+											parkingMarker.addClickListener(new Marker.ClickHandler() {
+												
+												@Override
+												public void handle(MouseEvent event) {
+													
+													InfoWindowOptions windowOpts = InfoWindowOptions.create();
+													InfoWindow parkingInfo = InfoWindow.create(windowOpts);
+													parkingInfo.setPosition(d.getLatLng());
+													parkingInfo.open(map);
+													parkingInfo.setContent("Cost: " + d.getPrice());
+													parkingInfo.clearCloseClickListeners();
+												
+													
+												}
+											});	
+								}
+									}
+								       }
+							}
+						});
+					}
+			    });
+			    
+			    
+			    vPanel.add(hPanel);
+				RootPanel.get("map_top").add(vPanel);
+			    
+			}
+			// Custom error message code taken from::
+				// http://stackoverflow.com/questions/5051643/messagebox-in-gwt
+				public static DialogBox alertWidget(final String header,
+						final String content) {
+					final DialogBox box = new DialogBox();
+					final VerticalPanel panel = new VerticalPanel();
+					box.setText(header);
+					panel.add(new Label(content));
+					final Button buttonClose = new Button("Close", new ClickHandler() {
+						@Override
+						public void onClick(final ClickEvent event) {
+							box.hide();
+						}
+					});
+					// few empty labels to make widget larger
+					final Label emptyLabel = new Label("");
+					emptyLabel.setSize("auto", "25px");
+					panel.add(emptyLabel);
+					panel.add(emptyLabel);
+					buttonClose.setWidth("90px");
+					panel.add(buttonClose);
+					panel.setCellHorizontalAlignment(buttonClose, HasAlignment.ALIGN_RIGHT);
+					box.add(panel);
+					return box;
+				}		
+
+			
+			
+		}
+
 
