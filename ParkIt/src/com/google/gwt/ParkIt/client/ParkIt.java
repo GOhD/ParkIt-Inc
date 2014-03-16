@@ -70,6 +70,10 @@ public class ParkIt implements EntryPoint {
 	private TextBox textBox = new TextBox();
 	private Button button = new Button("Search!");
 	
+	private final Button updateDataButton = new Button("Update Data");
+	private final TextBox dataField = new TextBox();
+	private final Label errorLabel = new Label();
+	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
@@ -158,6 +162,96 @@ public class ParkIt implements EntryPoint {
 		loginImage.getElement().setClassName("login-area");
 		loginPanel.add(signInLink);
 		RootPanel.get("loginPanelContainer").add(loginPanel);
+		
+		final DialogBox dialogBox = new DialogBox();
+		dialogBox.setText("Updating Data");
+		dialogBox.setAnimationEnabled(true);
+		final Button closeButton = new Button("Close");
+		// We can set the id of a widget by accessing its Element
+		closeButton.getElement().setId("closeButton");
+		final Label textToServerLabel = new Label();
+		final HTML serverResponseLabel = new HTML();
+		VerticalPanel dialogVPanel = new VerticalPanel();
+		dialogVPanel.addStyleName("dialogVPanel");
+		dialogVPanel.add(new HTML("<b>Updating Data:</b>"));
+		dialogVPanel.add(textToServerLabel);
+		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
+		dialogVPanel.add(serverResponseLabel);
+		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+		dialogVPanel.add(closeButton);
+		dialogBox.setWidget(dialogVPanel);
+		// Add a handler to close the DialogBox
+		closeButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				dialogBox.hide();
+				updateDataButton.setEnabled(true);
+				updateDataButton.setFocus(true);
+			}
+		});
+		
+		// Create a handler for the sendButton and nameField
+		class MyHandler implements ClickHandler, KeyUpHandler {
+			/**
+			 * Fired when the user clicks on the sendButton.
+			 */
+			public void onClick(ClickEvent event) {
+				sendDataToServer();
+			}
+
+			/**
+			 * Fired when the user types in the nameField.
+			 */
+			public void onKeyUp(KeyUpEvent event) {
+				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+					sendDataToServer();
+				}
+			}
+
+			/**
+			 * Send the name from the nameField to the server and wait for a response.
+			 */
+			private void sendDataToServer() {
+				// First, we validate the input.
+				errorLabel.setText("");
+				String textToServer = dataField.getText();
+				if (!FieldVerifier.isValidName(textToServer)) {
+					errorLabel.setText("Please enter data to input!");
+					return;
+				}
+
+				// Then, we send the input to the server.
+				updateDataButton.setEnabled(false);
+				textToServerLabel.setText(textToServer);
+				serverResponseLabel.setText("");
+				greetingService.greetServer(textToServer,
+						new AsyncCallback<String>() {
+							public void onFailure(Throwable caught) {
+								// Show the RPC error message to the user
+								dialogBox
+										.setText("Remote Procedure Call - Failure");
+								serverResponseLabel
+										.addStyleName("serverResponseLabelError");
+								serverResponseLabel.setHTML(SERVER_ERROR);
+								dialogBox.center();
+								closeButton.setFocus(true);
+							}
+
+							public void onSuccess(String result) {
+								dialogBox.setText("Remote Procedure Call");
+								serverResponseLabel
+										.removeStyleName("serverResponseLabelError");
+								serverResponseLabel.setHTML(result);
+								dialogBox.center();
+								closeButton.setFocus(true);
+							}
+						});
+			}
+		}
+		MyHandler handler = new MyHandler();
+		updateDataButton.addClickHandler(handler);
+		dataField.addKeyUpHandler(handler);	
+				
+	
 		final StringBuilder userEmail = new StringBuilder();
 		greetingService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 			@Override
@@ -170,19 +264,28 @@ public class ParkIt implements EntryPoint {
 				if (result.getName() != null && !result.getName().isEmpty()) {
 					addGoogleAuthHelper();
 					loadLogout(result);
+					dataField.setEnabled(false);
+					updateDataButton.setEnabled(false);
 					button.setEnabled(true);
 					textBox.setEnabled(true);
 					textBox.setFocus(true);
 					textBox.selectAll();
+					if (result.getName().equals("kyhee92@gmail.com") || result.getName().equals("pablow93@gmail.com") || result.getName().equals("taffyluchia@gmail.com")) {
+						dataField.setText("Data to load");
+						updateDataButton.addStyleName("updateDataButton");
+						dataField.setEnabled(true);
+						updateDataButton.setEnabled(true);
+						RootPanel.get("dataFieldContainer").add(dataField);
+						RootPanel.get("updateDataButtonContainer").add(updateDataButton);
+						RootPanel.get("errorLabelContainer").add(errorLabel);
+					}
 				} else {
 					loadLogin(result);
 				}
 				userEmail.append(result.getEmailAddress());
 			}
-			
-
 		});
-		
+					
 		
 		//setting Panel's specs
 				vPanel.setPixelSize(0, 40);
@@ -307,10 +410,5 @@ public class ParkIt implements EntryPoint {
 					panel.setCellHorizontalAlignment(buttonClose, HasAlignment.ALIGN_RIGHT);
 					box.add(panel);
 					return box;
-				}		
-
-			
-			
-		}
-
-
+				}
+			}
