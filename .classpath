@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="ParkIt/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/plus-v1r119lv1.16.0-rc"/>
-	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/google-api-client-1.6.0-beta.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/google-oauth-client-1.5.0-beta.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/gwt-oauth2-0.2-alpha.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Christine/Downloads/jackson-core-asl-1.9.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Christine/Desktop/gwt-maps-3.8.0-pre1/gwt-maps-3.8.0/gwt-maps.jar"/>
-	<classpathentry kind="output" path="ParkIt/war/WEB-INF/classes"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="bin"/>
+	<classpathentry exported="true" kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api-1.0-sdk-1.7.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api-labs.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-endpoints.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-jsr107cache-1.7.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-testing.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/asm-4.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/com.google.appengine.eclipse.core_3.1.3.v201212122042-rel-r42.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/com.google.appengine.eclipse.datatools_3.1.3.v201212122042-rel-r42.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/com.google.appengine.eclipse.webtools_3.1.3.v201212122042-rel-r42.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/com.google.appengine.eclipse.webtools.e42_3.1.3.v201212122042-rel-r42.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/datanucleus-appengine-2.1.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/geronimo-jpa_2.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jdo-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jsr107cache-1.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/opencsv-2.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="test/appengine-api-stubs.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-appengine-3.0.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-appengine-3.0.3-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-appengine-3.0.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-async-3.0.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-async-3.0.3-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-async-3.0.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-core-3.0.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-core-3.0.3-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-core-3.0.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-examples-3.0.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-examples-3.0.3-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-examples-3.0.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-media-support-3.0.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-media-support-3.0.3-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-media-support-3.0.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-stream-3.0.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-stream-3.0.3-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/twitter4j-stream-3.0.3.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
