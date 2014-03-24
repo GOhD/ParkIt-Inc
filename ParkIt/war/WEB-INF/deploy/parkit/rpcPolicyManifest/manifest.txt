@@ -1,3 +1,2 @@
-# Module parkit
+# Module ParkIt
 # RPC service class, partial path of RPC policy file
-com.google.gwt.ParkIt.client.GreetingService, 7877A2E68FF0B5FEFF25A31449DCD6AD.gwt.rpc

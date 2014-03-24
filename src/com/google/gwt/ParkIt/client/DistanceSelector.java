@@ -35,8 +35,11 @@ public class DistanceSelector {
 		// Add toggle button to the root panel.
 		VerticalPanel distancePanel = new VerticalPanel();
 		distancePanel.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
-		Label title = new Label("Radius:");
-		distancePanel.add(title);
+		Label favorites = new Label("Favorites:");
+		distancePanel.add(favorites);
+		distancePanel.setSpacing(5);
+		Label radius = new Label("Radius:");
+		distancePanel.add(radius);
 		distancePanel.setSpacing(5);
 		for (RadioButton radiobutton : radioButtons) {
 			distancePanel.add(radiobutton);
@@ -62,6 +65,17 @@ public class DistanceSelector {
 		
 		updateButton.addClickHandler(clickHandler);
 		distancePanel.add(updateButton);
+
+		RootPanel.get("options_panel").add(distancePanel);
+		Label space = new Label("Admin:");
+		distancePanel.add(space);
+		distancePanel.setSpacing(5);
+	
+		Button dataButton = new Button("Data");
+		dataButton.setStylePrimaryName("btn"); // use Bootstrap button style
+
+		dataButton.addClickHandler(clickHandler);
+		distancePanel.add(dataButton);
 
 		RootPanel.get("options_panel").add(distancePanel);
 	}
