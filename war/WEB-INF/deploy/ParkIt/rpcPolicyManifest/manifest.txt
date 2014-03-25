@@ -1,2 +1,6 @@
 # Module ParkIt
 # RPC service class, partial path of RPC policy file
+com.google.gwt.ParkIt.client.UserMapDataService, 0BCBBF7EE1D6D44190C4088C23C06F69.gwt.rpc
+com.google.gwt.ParkIt.client.GoogleLoginService, 41A3DDE94BEC847FA0E4F2EC50D34577.gwt.rpc
+com.google.gwt.ParkIt.client.UserDataService, DB221FC50D3001087099046D2D42EE9B.gwt.rpc
+com.google.gwt.ParkIt.client.MapDataService, DF9FF6159E2EDB9DE8E9D9B099EECF68.gwt.rpc
