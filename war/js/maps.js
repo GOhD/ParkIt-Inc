@@ -95,8 +95,8 @@ function tweetLocation(latLng, formatTweetCallback)
 		async: false,
 		url: "https://api.foursquare.com/v2/venues/search",
 		data: {
-			client_id: "X0V3Y50CA3CUTGOWGDGQCHAK0UVTNXYW4VPNFG0HQKA2K0GK",
-			client_secret: "IHCP2Y3G2XGK2FOM0KOKIIIQVWG0N0HZ0RGJ42D0E1ENDAFL",
+			client_id: "WPZ3KO3L0ST522PFQB5MU03BFZCFOISOVWJKFIN1QN0AXGLQ",
+			client_secret: "2KJZWRNZC3SHWKUSF2OOGQ02T2YYYMZSN5YXLEBG30CLQ1BX",
 			ll: latLng.lat() + "," + latLng.lng(),
 			v: "20130331",
 			limit: 1

@@ -16,7 +16,6 @@ import au.com.bytecode.opencsv.CSVReader;
 
 import com.google.gwt.ParkIt.shared.LatLong;
 import com.google.gwt.ParkIt.shared.MapEntry;
-import com.google.gwt.ParkIt.shared.PMF;
 
 public class DataRetriever {
 	
@@ -43,7 +42,7 @@ public class DataRetriever {
 		
 	private Collection<MapEntry> retrieveMeterData() {
 		isTimestampRecent(lastMeterDataUpdate, meterUpToDate);
-		if (!meterUpToDate) {
+		//if (!meterUpToDate) {
 			System.out.println("Retrieving Meter Data and Updating Timestamp");
 			
 			try{
@@ -61,7 +60,7 @@ public class DataRetriever {
 			}
 			lastMeterDataUpdate = System.currentTimeMillis();
 			meterUpToDate = true;
-		}
+		//}
 		return meterData;
 	}
 
