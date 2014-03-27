@@ -123,7 +123,6 @@ public class DistanceSelector {
 		RootPanel.get("options_panel").add(distancePanel);
 	}
 	
-
 	public double getRadius() {
 		for (int i = 0; i < distances.length; i++) {
 			if (radioButtons.get(i).getValue()) return distances[i];
