@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ 
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>ParkIt.html</welcome-file>
+  </welcome-file-list>
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>MapDataServiceImpl</servlet-name>
+    <servlet-class>com.google.gwt.ParkIt.server.MapDataServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>MapDataServiceImpl</servlet-name>
+    <url-pattern>/ParkIt/MapDataService</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UserMapDataServiceImpl</servlet-name>
+    <servlet-class>com.google.gwt.ParkIt.server.UserMapDataServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UserMapDataServiceImpl</servlet-name>
+    <url-pattern>/ParkIt/UserMapDataService</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>UserDataServiceImpl</servlet-name>
+    <servlet-class>com.google.gwt.ParkIt.server.UserDataServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>UserDataServiceImpl</servlet-name>
+    <url-pattern>/ParkIt/UserDataService</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GoogleLoginServiceImpl</servlet-name>
+    <servlet-class>com.google.gwt.ParkIt.server.GoogleLoginServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>GoogleLoginServiceImpl</servlet-name>
+    <url-pattern>/ParkIt/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+    <init-param>
+      <param-name>services</param-name>
+      <param-value/>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <url-pattern>/_ah/spi/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>

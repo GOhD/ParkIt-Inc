@@ -1,0 +1,270 @@
+h1,h2,h3,h4,h5,h6,p {
+	margin: 0;
+}
+
+body, html {
+	width: 100%;
+	height: 100%;
+	margin: 0 !important;
+	overflow-x:hidden;
+	font-family: "Helvetica Neue", Helvetica, sans-serif !important;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #777777;
+  margin: 5px 0px 15px;
+  text-align: center;
+}
+
+.sendButton {
+  display: block;
+  font-size: 16pt;
+}
+
+.brand {
+    position: absolute;
+    width: 50%;
+	left: 25%;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+    text-align: center;
+    margin: auto;
+	font-size: 1.8em !important;
+	z-index:0;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+
+#right_nav {
+	padding-right: 10px;
+}
+
+#right_nav>* {
+	margin-left: 5px;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+  width: 400px;
+}
+
+.dialogVPanel {
+  margin: 5px;
+}
+
+.serverResponseLabelError {
+  color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+  margin: 15px 6px 6px;
+}
+
+#view_container {
+	width: 100%;
+	margin-top: 40px;
+	height: calc(100% - 40px - 31px);
+	height: -o-calc(100% - 40px - 31px);
+	height: -moz-calc(100% - 40px - 31px);
+	height: -webkit-calc(100% - 40px - 31px);
+	position: relative;
+	display: block;
+	overflow: hidden;
+}
+
+/* center views horizontally */
+#map_container, #table_container {
+	margin: 0 8%;
+	width: 84%;
+}
+
+#map_container {
+	height: 100%;
+	border: 1px solid rgba(0,0,0,.2);
+	overflow-y: hidden;
+}
+
+#map_canvas {
+	width: 100%;
+	height: 100%;
+}
+
+.hint_label{
+	text-align: center;
+	font-size: 1.25em;
+	display: inline;
+	padding: 0px 50px;
+	color:#555;
+	text-shadow:0 1px 0 #fff;
+}
+
+#hints_container {
+	height: 31px;
+}
+
+#table_container {
+	height: 100%;
+	overflow: scroll;
+}
+
+/* Right-click menu */
+
+.context_menu {
+	background-color:white;
+	border:1px solid rgba(0,0,0,0.3);
+	box-shadow: 0 2px 3px 1px rgba(0,0,0,.15);
+}
+
+.context_menu_item {
+	padding: 5px 10px;
+}
+
+.context_menu_item:hover {
+	background-color: rgba(0,0,0,0.1);
+}
+
+.context_menu_separator {
+	background-color: rgba(0,0,0,0.2);
+	height:1px;
+	margin:0;
+	padding:0;
+}
+
+/* Route directions panel */
+
+#direction_container {
+	left: 0; top: 0;
+	position: absolute;
+	width: 20%;
+	overflow-x: hidden;
+	height: 100%;
+	display: none;
+}
+
+#direction_panel {
+	background-color: white;
+	padding: 15px 10px 0px;
+	overflow-y: scroll;
+}
+
+#close_directions {
+	padding: 0px 2px 5px 5px;
+	cursor: pointer;
+}
+
+[class*='close-'] {
+	color: #777 !important;
+	font: 24px/100% arial, sans-serif;
+	position: absolute;
+	right: 0px;
+	display: block;
+	text-decoration: none !important;
+	text-shadow: 0 1px 0 #fff;
+	top: 0px;
+}
+
+/* Options panel */
+
+#options_panel {
+	right: -20px; top: 0;
+	margin-top: 7px;
+	position: absolute;
+	width: 8%;
+}
+
+#options_panel table {
+	margin-bottom: 10px;
+}
+
+#options_panel label {
+	display: inline-block;
+	padding: 1px 8px;
+}
+
+#options_panel input {
+	margin: 0;
+	display: inline-block;
+}
+
+/* Logout menu */
+
+#logout_menu {
+	left: 0;
+	top: 0;
+	position: absolute;
+	margin: 10px 0 0 10px;
+}
+
+#logout_button {
+	cursor: pointer;
+}
+
+/* Info window styling */
+
+.trust_rating {
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	color: white;
+	padding: 0 3px;
+	text-align: center;
+	display: inline-block;
+}
+
+.markerHeader {
+	font-weight: bold;
+	font-size: 1.3em;
+	margin-bottom: 5px;
+	line-height: 1em;
+}
+
+.marker_actions {
+	width: 100%;
+	border-top: 1px solid rgba(0,0,0,.2);
+	margin-top: 8px;
+	padding-top: 6px;
+}
+
+.marker_actions>ul {
+	display: block;
+	margin: 0;
+	padding: 0;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+}
+
+.marker_actions>ul>li {
+	display: inline;
+	padding-right: 8px;
+}
+
+.marker_actions>ul>li:last-of-type {
+	padding-right: 0;
+}
+
+.marker_actions a {
+	cursor: pointer;
+}
+
+.marker_actions .dropdown-menu {
+	min-width: 100px;
+}
+
+/* Resource form */
+
+#resource-form fieldset {
+	border: none;
+	padding: 0;
+	margin-top: 10px;
+}
+
+#resource-form fieldset label {
+	padding-right: 5px;
+	display: inline-block;
+	cursor: default;
+}
