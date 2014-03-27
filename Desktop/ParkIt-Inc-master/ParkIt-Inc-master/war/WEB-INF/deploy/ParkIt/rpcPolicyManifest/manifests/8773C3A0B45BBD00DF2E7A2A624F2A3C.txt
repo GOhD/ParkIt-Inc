@@ -1,0 +1,2 @@
+serviceClass: com.google.gwt.ParkIt.client.UserDataService
+path: DB221FC50D3001087099046D2D42EE9B.gwt.rpc
