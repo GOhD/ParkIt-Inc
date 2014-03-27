@@ -7,11 +7,13 @@ import java.util.List;
 
 import javax.jdo.FetchGroup;
 import javax.jdo.JDOHelper;
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
 import com.google.gwt.ParkIt.client.MapDataService;
+import com.google.gwt.ParkIt.shared.GoogleLoginInfo;
 import com.google.gwt.ParkIt.shared.LatLong;
 import com.google.gwt.ParkIt.shared.MapEntry;
 import com.google.gwt.ParkIt.shared.UserEntry;
@@ -28,6 +30,18 @@ public class MapDataServiceImpl extends RemoteServiceServlet implements MapDataS
 	
 	private static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 
+	private UserEntry createMapEntries(GoogleLoginInfo gli) {
+		PersistenceManager pm = getPersistenceManager();
+		UserEntry ue = new UserEntry(gli);
+		try {
+			pm.makePersistent(ue);
+			ue = pm.detachCopy(ue);
+		} finally {
+			pm.close();
+		}
+		return ue;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<MapEntry> retrieveMapEntries(LatLong currentLocation, double searchRadius){
