@@ -15,12 +15,12 @@ import com.google.gwt.ParkIt.shared.LatLong;
 public class MapEntry implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	public static final String parkingMeter = "ParkingMeter";
+	public static final String parkingMeter = "ParkingMeter"; 
 
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
-    private String key;
+    private String key; 
 	
 	@Persistent
 	protected String type;
