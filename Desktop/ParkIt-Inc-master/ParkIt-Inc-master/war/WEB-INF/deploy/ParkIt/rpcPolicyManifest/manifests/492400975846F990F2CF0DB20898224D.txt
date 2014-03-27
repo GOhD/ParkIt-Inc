@@ -1,2 +1,0 @@
-serviceClass: com.google.gwt.ParkIt.client.UserMapDataService
-path: 0BCBBF7EE1D6D44190C4088C23C06F69.gwt.rpc

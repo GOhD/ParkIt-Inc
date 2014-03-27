@@ -8,7 +8,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-@PersistenceCapable(detachable="true")
+@PersistenceCapable(detachable="true") 
 public class UserEntry implements Serializable{
 	
 	/**
@@ -18,7 +18,7 @@ public class UserEntry implements Serializable{
 
 	@PrimaryKey
 	@Persistent
-	private String email;
+	private String email; 
 
 	@Persistent
 	private String twitterToken;

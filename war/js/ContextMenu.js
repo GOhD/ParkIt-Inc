@@ -19,7 +19,7 @@
 function ContextMenu(map, options){
 	options=options || {};
 	
-	//this.setMap(map);
+	this.setMap(map);
 	
 	this.classNames_=options.classNames || {};
 	this.map_=map;
@@ -33,7 +33,7 @@ ContextMenu.prototype=new google.maps.OverlayView();
 
 ContextMenu.prototype.draw=function(){
 	if(this.isVisible_){
-		//var mapSize=new google.maps.Size(this.mapDiv_.offsetWidth, this.mapDiv_.offsetHeight);
+		var mapSize=new google.maps.Size(this.mapDiv_.offsetWidth, this.mapDiv_.offsetHeight);
 		var menuSize=new google.maps.Size(this.menu_.offsetWidth, this.menu_.offsetHeight);
 		var mousePosition=this.getProjection().fromLatLngToDivPixel(this.position_);
 		
@@ -114,9 +114,9 @@ ContextMenu.prototype.onAdd=function(){
 	this.menu_=menu;
 	this.position_=new google.maps.LatLng(0, 0);
 	
-	//google.maps.event.addListener(this.map_, 'click', function(mouseEvent){
-	//	$this.hide();
-	//});
+	google.maps.event.addListener(this.map_, 'click', function(mouseEvent){
+		$this.hide();
+	});
 	
 	this.getPanes().floatPane.appendChild(menu);
 };
