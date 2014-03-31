@@ -6,5 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface GoogleLoginServiceAsync {
 
 	void login(String requestUri, AsyncCallback<GoogleLoginInfo> callback);
+	void greetServer(String input, AsyncCallback<String> callback)
+			throws IllegalArgumentException;
 
 }

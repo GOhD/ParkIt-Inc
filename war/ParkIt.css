@@ -171,7 +171,7 @@ h1 {
 
 /* Options panel */
 #options_panel {
-	right: -20px;
+	right: 40px;
 	top: 0;
 	margin-top: 7px;
 	position: absolute;
@@ -190,6 +190,26 @@ h1 {
 #options_panel input {
 	margin: 0;
 	display: inline-block;
+}
+
+/* Address Remove column */
+.addressListRemoveColumn {
+  text-align: center;
+}
+
+/* Address Flex table */
+.addressList {
+  border: 1px solid silver;
+  padding: 2px;
+  margin-bottom:6px;
+}
+
+
+/* address list header row */
+.addressListHeader {
+  background-color: #fff0f7;
+  color: black;
+  font-style: italic;
 }
 
 /* Logout menu */

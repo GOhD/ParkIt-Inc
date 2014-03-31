@@ -7,4 +7,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("login")
 public interface GoogleLoginService extends RemoteService {
 	public GoogleLoginInfo login(String requestUri);
+	String greetServer(String name) throws IllegalArgumentException;
 }
