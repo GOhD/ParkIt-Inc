@@ -89,7 +89,12 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 		typeToggler.displayTypeToggler();
 		int[] distances = {10, 20, 50, 100};
 		distanceSelector = new DistanceSelector(distances, 1, this);
-		distanceSelector.displayDistanceSelector();		
+		if (gLoginInfo.getEmailAddress().equals("kyhee92@gmail.com") || gLoginInfo.getEmailAddress().equals("taffyluchia@gmail.com")) {
+			distanceSelector.displayDistanceSelectorAdmin();
+		}
+		else {
+			distanceSelector.displayDistanceSelector();	
+		}	
 		updateMapEntriesIfNecessary();
 		loadUserEntries();
 		meterDataRetrieval();

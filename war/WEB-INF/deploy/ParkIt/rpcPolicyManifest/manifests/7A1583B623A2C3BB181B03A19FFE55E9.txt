@@ -1,0 +1,2 @@
+serviceClass: com.google.gwt.ParkIt.client.GoogleLoginService
+path: 55F3C36D10A4A2E6F4EDF732A8D4CF25.gwt.rpc
