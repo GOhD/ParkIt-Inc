@@ -25,7 +25,8 @@ public class ParkingDataServiceImpl extends RemoteServiceServlet implements Park
 		try {
 			String name = meterentry.getName();
 			LatLong latlong = meterentry.getLatLong();
-			MeterEntry me = new MeterEntry(name, latlong);
+			Double rate = meterentry.getRate();
+			MeterEntry me = new MeterEntry(name, latlong, rate);
 			pm.makePersistent(me);
 		} finally {
 			pm.close();

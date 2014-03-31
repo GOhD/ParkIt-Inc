@@ -36,7 +36,7 @@ public class ParkingDataRetriever {
 			System.out.println("Retrieving Meter Data from URL");
 			
 			try{
-				meterDataUrl = new URL("https://dl.dropboxusercontent.com/u/5731404/dataVancouver.csv");
+				meterDataUrl = new URL("https://dl.dropboxusercontent.com/u/5731404/dataVancouver2.csv");
 				URLConnection connection = meterDataUrl.openConnection();
 				//InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
 				StringWriter writer = new StringWriter();
@@ -62,6 +62,7 @@ public class ParkingDataRetriever {
 			int nameIndex = invalidIndex;
 			int latIndex = invalidIndex;
 			int longIndex = invalidIndex;
+			int commentIndex = invalidIndex;
 			
 			
 			CSVReader reader = new CSVReader(new StringReader(data), separator);
@@ -78,6 +79,8 @@ public class ParkingDataRetriever {
 					longIndex = i;
 				else if (key.equalsIgnoreCase("name"))
 					nameIndex = i;
+				else if (key.equalsIgnoreCase("comment"))
+					commentIndex = i;
 			}
 			
 			if (latIndex == invalidIndex || longIndex == invalidIndex || nameIndex == invalidIndex) {
@@ -92,8 +95,12 @@ public class ParkingDataRetriever {
 				
 				double lat = Double.parseDouble(nextLine[latIndex]);
 				double lon = Double.parseDouble(nextLine[longIndex]);
-				String name = nextLine[longIndex];
-				MeterEntry entry = new MeterEntry(name, new LatLong(lat, lon));
+				String name = nextLine[nameIndex];
+				String comment = nextLine[commentIndex];
+				int rateIndex = comment.lastIndexOf("$") + 1;
+				String rateString = comment.substring(rateIndex, rateIndex + 4);
+				double rate = Double.parseDouble(rateString);
+				MeterEntry entry = new MeterEntry(name, new LatLong(lat, lon), rate);
 				newMeterData.add(entry);
 				
 			}

@@ -25,17 +25,19 @@ public class MeterEntry implements Serializable{
 	private LatLong latLong;
 	
 	@Persistent
-	private Double price;
+	private Double rate;
 	
 		
 	public MeterEntry() {
 		this.name = null;
 		this.latLong = new LatLong(0, 0);
+		this.rate = null;
 	}
 	
-	public MeterEntry(String name, LatLong latlong) {
+	public MeterEntry(String name, LatLong latlong, Double rate) {
 		this.name = name;
 		this.latLong = latlong;
+		this.rate = rate;
 	}
 		
 	public String getName() {
@@ -44,6 +46,10 @@ public class MeterEntry implements Serializable{
 	
 	public LatLong getLatLong() {
 		return latLong;
+	}
+	
+	public Double getRate() {
+		return rate;
 	}
 	
 	public String toString() {

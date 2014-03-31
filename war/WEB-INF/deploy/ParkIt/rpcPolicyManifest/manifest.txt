@@ -3,5 +3,5 @@
 com.google.gwt.ParkIt.client.UserMapDataService, 0BCBBF7EE1D6D44190C4088C23C06F69.gwt.rpc
 com.google.gwt.ParkIt.client.GoogleLoginService, 41A3DDE94BEC847FA0E4F2EC50D34577.gwt.rpc
 com.google.gwt.ParkIt.client.UserDataService, DB221FC50D3001087099046D2D42EE9B.gwt.rpc
+com.google.gwt.ParkIt.client.ParkingDataService, FF76E5BEE938CCE5D0F72356823BEF47.gwt.rpc
 com.google.gwt.ParkIt.client.MapDataService, DF9FF6159E2EDB9DE8E9D9B099EECF68.gwt.rpc
-com.google.gwt.ParkIt.client.ParkingDataService, ACEA9DC2F4C338187D88561EDB7D0495.gwt.rpc
