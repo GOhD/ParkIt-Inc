@@ -32,7 +32,7 @@ public class ParkingDataRetriever {
 			System.out.println("Retrieving Meter Data from URL");
 			
 			try{
-				meterDataUrl = new URL("https://dl.dropboxusercontent.com/u/5731404/dataVancouver2.csv");
+				meterDataUrl = new URL("https://dl.dropboxusercontent.com/u/5731404/dataVancouver.csv");
 				URLConnection connection = meterDataUrl.openConnection();
 				//InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
 				StringWriter writer = new StringWriter();

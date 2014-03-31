@@ -49,7 +49,7 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 	public void onModuleLoad() {
 		setupJSMethods(this);
 		loginIfNecessary();
-		meterDataRetrieval();
+		//meterDataRetrieval();
 	}
 
 	public void loginIfNecessary() {
@@ -97,7 +97,7 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 		}	
 		updateMapEntriesIfNecessary();
 		loadUserEntries();
-		meterDataRetrieval();
+		//meterDataRetrieval();
 	}
 
 	private void updateMapEntriesIfNecessary() {
@@ -306,7 +306,7 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 		updateMapEntriesIfNecessary();
 	}
 
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	public void meterDataRetrieval() {
 		// (1) Create the client proxy. Note that although you are creating the
 		// service interface proper, you cast the result to the asynchronous
@@ -337,7 +337,7 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 		// 'callback' will be invoked when the RPC completes.
 		//
 		parkingDataService.fetchMeterEntries(callback);
-	}
+	}*/
 
 
 
