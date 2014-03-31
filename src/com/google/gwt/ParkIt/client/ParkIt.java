@@ -10,6 +10,7 @@ import com.google.gwt.ParkIt.client.UserEntryTable.UserEntryTableDelegate;
 import com.google.gwt.ParkIt.shared.GoogleLoginInfo;
 import com.google.gwt.ParkIt.shared.LatLong;
 import com.google.gwt.ParkIt.shared.MapEntry;
+import com.google.gwt.ParkIt.shared.MeterEntry;
 import com.google.gwt.ParkIt.shared.UserEntry;
 import com.google.gwt.ParkIt.shared.UserMapEntry;
 import com.google.gwt.core.client.EntryPoint;
@@ -29,7 +30,9 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 	private UserEntry currentUser;
 	private Collection<MapEntry> mapEntries;
 	private Collection<UserEntry> userEntries;
+	private Collection<MeterEntry> meterEntries;
 	private MapDataServiceAsync mapService = GWT.create(MapDataService.class);
+	private ParkingDataServiceAsync meterService = GWT.create(ParkingDataService.class);
 	private UserDataServiceAsync userService = GWT.create(UserDataService.class);
 	private UserMapDataServiceAsync userMapService = GWT.create(UserMapDataService.class);
 	private TypeToggler typeToggler;
@@ -46,11 +49,12 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 	public void onModuleLoad() {
 		setupJSMethods(this);
 		loginIfNecessary();
+		meterDataRetrieval();
 	}
-	
+
 	public void loginIfNecessary() {
 		if (gLoginInfo != null && gLoginInfo.isLoggedIn()) return;
-		
+
 		// Check login status using google login service.
 		GoogleLoginServiceAsync gLoginService = GWT.create(GoogleLoginService.class);
 		gLoginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<GoogleLoginInfo>() {
@@ -69,15 +73,15 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 			}
 		});
 	}
-	
+
 	private static native void showLoginAlert(String loginUrl) /*-{
 		$wnd.showWelcomeAlert(loginUrl);
 	}-*/;
-	
+
 	private void loadParkIt() {
 		if (mapService == null)
 			mapService = GWT.create(MapDataService.class);
-			
+
 		//INSERT SEARCH BAR HERE
 		ArrayList<String> types = new ArrayList<String>(Arrays.asList(mapEntryTypes));
 		types.add("User");
@@ -93,12 +97,13 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 		}	
 		updateMapEntriesIfNecessary();
 		loadUserEntries();
+		meterDataRetrieval();
 	}
-	
+
 	private void updateMapEntriesIfNecessary() {
 		if (hasLoadedMapEntries || gLoginInfo == null || !gLoginInfo.isLoggedIn() ||  currentLocation == null) return;
 		hasLoadedMapEntries = true;
-		
+
 		System.out.println("Load Map Entries: Loading map entries");
 
 		AsyncCallback<Collection<MapEntry>> callback = new AsyncCallback<Collection<MapEntry>>() {
@@ -114,11 +119,11 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 				Window.alert("Data Failed to Load");
 			}
 		};
-		
+
 		//Initialized Map Content
 		double radius = (distanceSelector != null ? distanceSelector.getRadius() : 20.0);
 		List <String> types = (typeToggler != null ? typeToggler.getSelectedTypes() : Arrays.asList(mapEntryTypes));
-		
+
 		if (isFirstLoad) {
 			mapService.retrieveMapEntries(currentLocation, radius, callback);
 			isFirstLoad = true;
@@ -128,19 +133,19 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 			types.remove("User");
 			mapService.getMapEntriesOfType(currentLocation, radius, types, userEntries, callback);
 		}
-		
+
 		retrieveCurrentUser();
 		if (currentLocation != null)
 			checkIn();
 	}
-	
+
 	private void loadUserEntries() {
 		if (hasLoadedUserEntries || gLoginInfo == null || !gLoginInfo.isLoggedIn()) return;
 		retrieveCurrentUser();
 		hasLoadedUserEntries = true;
-		
+
 		System.out.println("Load User Entries: Loading user entries");
-		
+
 		final UserEntryTableDelegate delegate = this;
 		AsyncCallback<Collection<UserEntry>> callback = new AsyncCallback<Collection<UserEntry>>() {
 
@@ -156,19 +161,19 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 				Window.alert("User data Failed to Load");
 			}
 		};
-		
+
 		userService.retrieveAllUsers(callback);
 	}
-	
+
 	private void displayUserEntryUpdateButton() {
 		// Add toggle button to the root panel.
 		VerticalPanel panel = new VerticalPanel();
 		panel.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
 		panel.setSpacing(5);
-		
+
 		RootPanel.get("table").add(panel);	
 	}
-		
+
 	public void setCurrentLocation(double lat, double lng) {
 		currentLocation = new LatLong(lat, lng);
 		canCheckin = true;
@@ -176,17 +181,17 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 			checkIn();
 		updateMapEntriesIfNecessary();
 	}
-	
+
 	public void noteLocationUnavailable() {
 		// default location
 		canCheckin = false;
 		currentLocation = new LatLong(49.2505, -123.1119);
 		updateMapEntriesIfNecessary();
 	}
-	
+
 	private void retrieveCurrentUser() {
 		if (isRetrievingUser || gLoginInfo == null || !gLoginInfo.isLoggedIn()) return;
-		
+
 		isRetrievingUser = true;
 		userService.getUser(gLoginInfo, new AsyncCallback<UserEntry>() {
 			@Override
@@ -205,7 +210,7 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 			}
 		});
 	}
-	
+
 	private void checkInAsUser(UserEntry user) {
 		userService.userCheckIn(user, currentLocation, new AsyncCallback<Void>() {
 			@Override
@@ -217,30 +222,30 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 			public void onSuccess(Void result) {
 				System.out.println("Checkin complete!");
 			}
-			
+
 		});
 	}
-	
+
 	private void checkIn() {
 		// only check in if we have a valid location and login
 		if (!canCheckin || currentLocation == null || gLoginInfo == null) return;
-		
+
 		if (currentUser != null) {
 			checkInAsUser(currentUser);
 			return;
 		}
-		
+
 		checkinOnUserRetrieval = true;
 		retrieveCurrentUser();
 	}
-	
+
 	public String getCurrentUserName() {
 		return (currentUser != null ? currentUser.getName() : null);
 	}
-	
+
 	public void createUserMapEntry(double lat, double lng, String type, String description) {
 		if (type == null || currentUser == null) return;
-		
+
 		LatLong latLng = new LatLong(lat, lng);
 		UserMapEntry mapEntry = new UserMapEntry(latLng, type, description);
 		userMapService.storeUserMapEntry(mapEntry, currentUser, new AsyncCallback<Void>() {
@@ -256,14 +261,14 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 			}
 		});
 	}
-	
+
 	public void logout() {
 		if (gLoginInfo.isLoggedIn() && gLoginInfo.getLogoutUrl() != null) {
 			Window.Location.assign(gLoginInfo.getLogoutUrl());
 		}
 	}
-	
-	
+
+
 	private static native void setupJSMethods(ParkIt instance) /*-{
 		$wnd.setCurrentLocation = $entry(function(lat, lng) { 
 			instance.@com.google.gwt.ParkIt.client.ParkIt::setCurrentLocation(DD)(lat, lng); 
@@ -283,17 +288,17 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 		$wnd.loginIfNecessary = $entry(function() {
 			instance.@com.google.gwt.ParkIt.client.ParkIt::loginIfNecessary()();
 		});
-		
+
 	}-*/;
-	
+
 	private static native void displayHints(JsArrayString hints) /*-{
 		$wnd.setHints(hints);
 	}-*/;
-	
+
 	private static native void clearAllMapEntries() /*-{
 		$wnd.removeAllEntries();
 	}-*/;
-	
+
 
 	public void updateMapEntries() {
 		clearAllMapEntries();
@@ -301,6 +306,39 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 		updateMapEntriesIfNecessary();
 	}
 
+	@SuppressWarnings("unchecked")
+	public void meterDataRetrieval() {
+		// (1) Create the client proxy. Note that although you are creating the
+		// service interface proper, you cast the result to the asynchronous
+		// version of the interface. The cast is always safe because the
+		// generated proxy implements the asynchronous interface automatically.
+		//
+		ParkingDataServiceAsync parkingDataService = (ParkingDataServiceAsync) GWT.create(ParkingDataService.class);
 
-	
+		// (2) Create an asynchronous callback to handle the result.
+		//
+		AsyncCallback<Collection<MeterEntry>> callback = new AsyncCallback<Collection<MeterEntry>>() {
+
+			public void onFailure(Throwable caught) {
+				caught.printStackTrace();
+			}
+
+			@Override
+			public void onSuccess(Collection<MeterEntry> result) {
+				System.out.println("Meter Data Update: Success!");
+				System.out.println(result);
+			}
+			
+		};
+		
+		System.out.println("Fetching data!");
+
+		// (3) Make the call. Control flow will continue immediately and later
+		// 'callback' will be invoked when the RPC completes.
+		//
+		parkingDataService.fetchMeterEntries(callback);
+	}
+
+
+
 }

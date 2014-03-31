@@ -1,0 +1,2 @@
+serviceClass: com.google.gwt.ParkIt.client.ParkingDataService
+path: FF76E5BEE938CCE5D0F72356823BEF47.gwt.rpc
