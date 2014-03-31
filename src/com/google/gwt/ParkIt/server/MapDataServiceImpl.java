@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.jdo.FetchGroup;
 import javax.jdo.JDOHelper;
-import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;

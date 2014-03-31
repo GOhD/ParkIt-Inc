@@ -3,7 +3,6 @@ package com.google.gwt.ParkIt.shared;
 import java.io.Serializable;
 
 import javax.jdo.annotations.Embedded;
-import javax.jdo.annotations.EmbeddedOnly;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;

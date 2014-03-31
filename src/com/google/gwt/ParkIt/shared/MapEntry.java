@@ -2,14 +2,11 @@ package com.google.gwt.ParkIt.shared;
 
 import java.io.Serializable;
 
-import javax.jdo.annotations.Embedded;
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-
-import com.google.gwt.ParkIt.shared.LatLong;
 
 @PersistenceCapable(detachable="true")
 public class MapEntry implements Serializable {

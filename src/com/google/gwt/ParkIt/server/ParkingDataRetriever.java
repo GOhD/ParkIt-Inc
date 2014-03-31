@@ -8,10 +8,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-
 import org.apache.commons.io.IOUtils;
 
 import au.com.bytecode.opencsv.CSVReader;

@@ -6,10 +6,10 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.google.gwt.ParkIt.client.ParkingDataService;
 import com.google.gwt.ParkIt.shared.LatLong;
 import com.google.gwt.ParkIt.shared.MeterEntry;
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ParkingDataServiceImpl extends RemoteServiceServlet implements ParkingDataService{
 

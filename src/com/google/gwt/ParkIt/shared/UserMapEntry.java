@@ -1,6 +1,6 @@
 package com.google.gwt.ParkIt.shared;
 
-import java.util.Date; 
+import java.util.Date;
 
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.PersistenceCapable;
