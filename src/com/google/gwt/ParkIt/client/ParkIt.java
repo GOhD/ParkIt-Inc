@@ -15,7 +15,6 @@ import com.google.gwt.ParkIt.shared.UserEntry;
 import com.google.gwt.ParkIt.shared.UserMapEntry;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -291,9 +290,6 @@ public class ParkIt implements EntryPoint, UserEntryTableDelegate {
 
 	}-*/;
 
-	private static native void displayHints(JsArrayString hints) /*-{
-		$wnd.setHints(hints);
-	}-*/;
 
 	private static native void clearAllMapEntries() /*-{
 		$wnd.removeAllEntries();

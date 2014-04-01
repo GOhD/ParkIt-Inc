@@ -1,10 +1,10 @@
 package com.google.gwt.ParkIt.server;
 
-import com.google.gwt.ParkIt.shared.FieldVerifier;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.ParkIt.client.GoogleLoginService;
+import com.google.gwt.ParkIt.shared.FieldVerifier;
 import com.google.gwt.ParkIt.shared.GoogleLoginInfo;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

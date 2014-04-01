@@ -3,32 +3,29 @@ package com.google.gwt.ParkIt.client;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.google.gwt.ParkIt.client.GoogleLoginService;
-import com.google.gwt.ParkIt.client.GoogleLoginServiceAsync;
-import com.google.gwt.ParkIt.client.ParkIt;
 import com.google.gwt.ParkIt.shared.FieldVerifier;
 import com.google.gwt.ParkIt.shared.MeterEntry;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.SimpleRadioButton;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class DistanceSelector {
 
@@ -36,7 +33,7 @@ public class DistanceSelector {
 	private HorizontalPanel addPanel;
 	private TextBox newAddressTextBox;
 	private Button addButton;
-	private ArrayList <String> addresses = new ArrayList<String>();
+	private ArrayList<String> addresses = new ArrayList<String>();
 	private ArrayList<RadioButton> radioButtons;
 	private int[] distances;
 	private int selectedIndex;
