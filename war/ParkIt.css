@@ -81,8 +81,8 @@ h1 {
 	margin: 0 8%;
 	/* 	Disabled Map: */
 	width: 0%;
-	/* 	Recover Map: */
-	/* width: 84%; */
+	/* 	To Restore Map: */
+	/*  width: 84%; */
 }
 
 #map_container {
