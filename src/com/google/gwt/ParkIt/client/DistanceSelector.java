@@ -157,8 +157,9 @@ public class DistanceSelector {
 		// Add a button to remove this address from the table.
 		Button removeAddress = new Button("x");
 		addressesFlexTable.setWidget(row, 2, removeAddress);
-		addressesFlexTable.setWidget(row, 0, simpleRadioButton);
+		//addressesFlexTable.setWidget(row, 0, simpleRadioButton);
 		simpleRadioButton = new SimpleRadioButton("new name");
+		addressesFlexTable.setWidget(row, 0, simpleRadioButton);
 		// Add styles to elements in the address list table.
 		addressesFlexTable.getCellFormatter().addStyleName(0, 0, "addressListRemoveColumn");
 		addressesFlexTable.getCellFormatter().addStyleName(0, 1, "addressListRemoveColumn");
